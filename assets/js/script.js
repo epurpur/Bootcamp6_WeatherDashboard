@@ -38,6 +38,26 @@ function makeTodaysWeather() {
             } else {
                 $('#uvi').css({"backgroundColor": "red", "borderRadius": "5px", "padding": "3px"})
             }
+
+            //sets weather image based on value of conditions
+            var conditions = data.weather[0].main.toLowerCase();
+            console.log(conditions);
+            if (conditions == 'clear') {
+                $('#wIcon').attr('src', './assets/images/clear.png');
+            } else if (conditions == 'clouds') {
+                $('#wIcon').attr('src', './assets/images/clouds.png');
+            } else if (conditions == 'rain') {
+                $('#wIcon').attr('src', './assets/images/rain.png');
+            } else if (conditions == 'wind') {
+                $('#wIcon').attr('src', './assets/images/wind.png'); 
+            } else if (conditions == 'snow') {
+                $('#wIcon').attr('src', './assets/images/snow.png'); 
+            } else if (conditions == 'extreme') {
+                $('#wIcon').attr('src', './assets/images/extreme.png'); 
+            } else {
+                $('#wIcon').attr('src', './assets/images/extreme.png'); 
+            }
+            
         });
 }
 
