@@ -1,7 +1,5 @@
 
-* {
-    border: 1px solid black;
-}
+
 
 
 :root {
@@ -55,26 +53,65 @@ li {
 
 /* Results Column */
 
+/* Today's Forecast */
 #results-column {
-    display: flex;
     justify-content: center;
     padding: 10px 5px 10px 5px;
-
     width: 70%;
     text-align: center;
 }
 
 #today-forecast {
     display: flex;
-    width: 95%;
-    height: 500px;
+    width: 100%;
+    height: 300px;
     background-color: var(--background-color);
     border-radius: 10px;
+    padding-top: 15px;
 }
 
-
+#today-forecast h1 {
+    text-decoration: underline;
+}
 
 #title-column {
     width: 35%;
+    text-align: center;
+}
+
+#city-title, #today-date, #weather-items {
+    text-align: left;
+    padding: 0 0 0 10px;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+#weather-items div {
+    margin-bottom: 15px;
+}
+
+#weather-info-column {
+    width: 65%;
+}
+
+/* Five Day forecast */
+
+.card-header {
+    background-color: var(--background-color);
+}
+
+#five-day-forecast-title {
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
+#five-day-forecast-area {
+    display: flex;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+#five-day-forecast-area .list-group-item {
+    height: 75px;
     text-align: left;
 }

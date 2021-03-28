@@ -22,14 +22,19 @@
 
     <main>
         <section id="main-columns">
+
+            <!--Search Column-->
             <div id="search-column">
                 <h2> Search for Weather </h2>
+
                 <!--Search Bar-->
                 <div class="input-group" id="search-bar">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                         aria-describedby="search-addon" />
                     <button type="button" class="btn btn-outline-primary bg-primary text-light">search</button>
                 </div>
+
+                <!--Recent Search Results-->
                 <h2>Recent Searches</h2>
                 <ul class="list-group">
                     <li class="list-group-item">Charlottesville</li>
@@ -44,14 +49,86 @@
                     <li class="list-group-item">Las Vegas</li>
                 </ul>
             </div>
+
+            <!--Main column-->
             <div id="results-column">
+
+                <!--Today's Forecast-->
                 <div id="today-forecast">
                     <div id="title-column">
                         <h1> Today's Weather </h1>
                         <div id="city-title"> City: Charlottesville </div>
                         <div id="today-date"> Date: 03/28/21 </div>
                     </div> 
+                    <div id="weather-info-column">
+                        <h1> Weather Info </h1>
+                        <div id="weather-items">
+                            <div> Temperature:  </div>
+                            <div> Humidity: </div>
+                            <div> Wind Speed: </div>
+                            <div> UV Index: </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!--5 Day Forecast-->
+                <h1 id="five-day-forecast-title"> 5 Day Forecast </h1>
+                <div id='five-day-forecast-area'>
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Tomorrow's Date
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Weather Icon</li>
+                        <li class="list-group-item">Temp:</li>
+                        <li class="list-group-item">Humidity:</li>
+                    </ul>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        +2 Days
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item weather-icon">Weather Icon</li>
+                        <li class="list-group-item">Temp:</li>
+                        <li class="list-group-item">Humidity:</li>
+                    </ul>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        +3 Days
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item weather-icon">Weather Icon</li>
+                        <li class="list-group-item">Temp:</li>
+                        <li class="list-group-item">Humidity:</li>
+                    </ul>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        +4 Days
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item weather-icon">Weather Icon</li>
+                        <li class="list-group-item">Temp:</li>
+                        <li class="list-group-item">Humidity:</li>
+                    </ul>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        +5 Days
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item weather-icon">Weather Icon</li>
+                        <li class="list-group-item">Temp:</li>
+                        <li class="list-group-item">Humidity:</li>
+                    </ul>
+                    </div>
+
             </div>
         </section>
     </main>
