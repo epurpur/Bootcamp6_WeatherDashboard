@@ -1,0 +1,80 @@
+
+* {
+    border: 1px solid black;
+}
+
+
+:root {
+    --background-color: gray;
+    --jumbotron-font: 'Magra', sans-serif;
+    --header-font: 'Open Sans', sans-serif;
+    --main-font: 'Telex', sans-serif;
+}
+
+/********************/
+/* Jumbotron Styles */
+/********************/
+.jumbotron {
+    padding: 20px;
+    font-family: var(--jumbotron-font);
+}
+
+/********/
+/* Main */
+/********/
+main {
+    font-family: var(--main-font);
+}
+
+#main-columns {
+    display: flex;
+}
+
+h2 {
+    font-family: var(--header-font);
+}
+
+/* Search Column */
+
+#search-column {
+    width: 30%;
+    background-color: var(--background-color);
+    padding: 10px 5px 10px 5px;
+}
+
+#search-bar {
+    width: 90%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+li {
+    margin: 2px;
+    height: 50px;
+}
+
+/* Results Column */
+
+#results-column {
+    display: flex;
+    justify-content: center;
+    padding: 10px 5px 10px 5px;
+
+    width: 70%;
+    text-align: center;
+}
+
+#today-forecast {
+    display: flex;
+    width: 95%;
+    height: 500px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+}
+
+
+
+#title-column {
+    width: 35%;
+    text-align: left;
+}
