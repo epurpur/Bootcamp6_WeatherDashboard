@@ -29,24 +29,15 @@
 
                 <!--Search Bar-->
                 <div class="input-group" id="search-bar">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-primary bg-primary text-light">search</button>
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+                    <button type="button" id="searchBtn" class="btn btn-outline-primary bg-primary text-light">search</button>
                 </div>
 
                 <!--Recent Search Results-->
                 <h2>Recent Searches</h2>
-                <ul class="list-group">
+                <ul id="recent-searches" class="list-group">
                     <li class="list-group-item">Charlottesville</li>
-                    <li class="list-group-item">Boone</li>
-                    <li class="list-group-item">Chattanooga</li>
-                    <li class="list-group-item">Santa Fe</li>
-                    <li class="list-group-item">Fayetteville</li>
-                    <li class="list-group-item">Lexington</li>
-                    <li class="list-group-item">Salt Lake City</li>
-                    <li class="list-group-item">New York</li>
-                    <li class="list-group-item">Portland</li>
-                    <li class="list-group-item">Las Vegas</li>
+                    <li class="list-group-item">Charlottesville</li>
                 </ul>
             </div>
 
@@ -59,7 +50,7 @@
                         <h1> Today's Weather </h1>
                         <div id="city-title"> City: <span id="city"></span> </div>
                         <div id="today-date"> Date: <span id="todayDate"></span> </div>
-                        <div id="weather-icon"><img id='wIcon' alt="description of today's weather"></div>
+                        <div id="weather-icon"><img src="" id='wIcon' alt="description of today's weather"></div>
                     </div> 
                     <div id="weather-info-column">
                         <h1> Weather Info </h1>
