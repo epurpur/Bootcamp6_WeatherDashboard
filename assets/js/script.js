@@ -9,25 +9,22 @@ $('#searchBtn').click(function() {
     var cityName = $('input').val();
 
     //reset search text to empty
-    $(this).val('');
-
-    //draw HTML for today's weather card
-
+    $('input').val('');
+    
+    //draw HTML for today's weather card     
+    makeTodaysHTML();
 
     //make API request for today's weather
     getTodaysWeather(cityName);
 
     //add search value to list of Recent Searches
-    var recentSearchLength = $('#recent-searches').children().length;
-    if (recentSearchLength < 3) {        // if < 10 recent search items in list, just add new item to list
-        $('.list-group').append(`<li class="list-group-item">${cityName}</li>`)
-    } else {                              // if > 10 search items, remove last one and replace with new item
-        $('#recent-searches').children().last().remove()
-        $('.list-group').prepend(`<li class="list-group-item">${cityName}</li>`)
-    }
+    addRecentSearch(cityName);
 });
 
 
+/** 
+ * TODAY'S WEATHER FUNCTIONS
+ */
 
 
 //get today's weather data by city
@@ -53,6 +50,43 @@ function getTodaysWeather(cityName) {
 }
 
 
+function addRecentSearch(cityName) {
+    //adds current search value to list of recent searches
+    //takes cityName as argument when search button is clicked
+    var recentSearchLength = $('#recent-searches').children().length;
+
+    if (recentSearchLength < 10) {        // if < 10 recent search items in list, just add new item to list
+        $('#recent-searches').prepend(`<li class="list-group-item">${cityName}</li>`);
+    } else {                              // if > 10 search items, remove last one and replace with new item
+        $('#recent-searches').children().last().remove();
+        $('#recent-searches').prepend(`<li class="list-group-item">${cityName}</li>`);
+    }
+}
+
+
+function makeTodaysHTML() {
+    //makes HTML for Today's weather and prepends it to the results-column
+    $('#results-column').prepend(
+        '<div id="today-forecast">' +
+            '<div id="title-column">' +
+                "<h1> Today's Weather </h1>" +
+                '<div id="city-title"> City: <span id="city"></span> </div>' +
+                '<div id="today-date"> Date: <span id="todayDate"></span> </div>' +
+                '<div id="weather-icon"><img src="" id="wIcon" alt="description of weather today"></div>' +
+            '</div>' +
+            '<div id="weather-info-column">' +
+                '<h1> Weather Info </h1>' +
+                '<div id="weather-items">' +
+                    '<div> Temperature: <span id="temp"></span> F</div>' +
+                    '<div> Humidity: <span id="humidity"></span> %</div>' +
+                    '<div> Wind Speed: <span id="wind"></span> mph</div>' +
+                    '<div> UV Index: <span id="uvi"></span></div>' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    );
+}
+
 
 function createUVIndex() {
     //creates fake UV index as this information is not easily available via an API request
@@ -63,19 +97,17 @@ function createUVIndex() {
 }
 
 
-
-
 function fillDailyWeather(data) {
 // Takes API response from getTodaysWeather and fills out the daily weather part of the forecast with that information
 
     //use response to fill out data in today's weather card
     //these items selected don't require additional evaluation. 
     //I just take the value from the API response and insert into the text for the selected object
-    $('#city').text(data.name);
-    $('#todayDate').text(moment().format('MMMM D YYYY'))
-    $('#temp').text(data.main.temp);
-    $('#humidity').text(data.main.humidity);
-    $('#wind').text(data.wind.speed);
+    $('#city').text(data.name);                                                                     //city name
+    $('#todayDate').text(moment().format('MMMM D YYYY'))                                            //today's date
+    $('#temp').text(data.main.temp);                                                                //temperature
+    $('#humidity').text(data.main.humidity);                                                        //humidity
+    $('#wind').text(data.wind.speed);                                                               //wind speed
             
     // create random UV index. UV index data is no longer easily available from the API so this is my workaround
     var uvIndex = createUVIndex();    
@@ -109,3 +141,28 @@ function fillDailyWeather(data) {
         $('#wIcon').attr('src', './assets/images/extreme.png'); 
     }   
 }
+
+
+
+/**
+ * FIVE DAY FORECAST
+ */
+
+var cityName = 'Boone';
+function getFiveDayForecast(cityName) {
+    //construct URL using cityName, passed from button click, and API key
+    var url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key}&units=imperial`
+
+    // make API request for today's weather forecast in requested city
+    fetch(url)
+        .then(function (response) {
+            if (response.ok) {             //if user input is a valid city name
+                return response.json(); 
+            } 
+        })
+        .then(function (data) {
+            console.log(data);
+        });
+}
+
+getFiveDayForecast(cityName);
