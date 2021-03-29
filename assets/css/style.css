@@ -115,6 +115,7 @@ li {
     display: flex;
     font-size: 25px;
     margin-top: 20px;
+    font-size: 25px;
 }
 
 #five-day-forecast-area .list-group-item {
