@@ -24,10 +24,14 @@ $('#searchBtn').click(function() {
     addRecentSearch(cityName);
 
     //remove HTML for 5 day forecast if any exists
+    $('#five-day-forecast-title').remove()
+    $('#five-day-forecast-area').remove();
 
     //draw HTML for 5 day weather forecast
+    makeFiveDayHTML()
 
     //make API call for 5 day weather
+    getFiveDayForecast(cityName)
 });
 
 
@@ -132,36 +136,10 @@ function fillDailyWeather(data) {
     }
 
     //sets weather image based on value of conditions
-    var conditions = data.weather[0].main.toLowerCase();
-    setWeatherImage(conditions, '#wIcon');
- 
+    var conditions = data.weather[0].main.toLowerCase();                    // gets value of weather conditions as lower case string
+    $('#wIcon').attr('src', `./assets/images/${conditions}.png`)            // inserts conditions value into path of img src attribute
+
 }
-
-
-
-
-function setWeatherImage(weather, attrName) {
-    //sets src attribute of weather image for given day
-    //weather is description of weather on that day (ex: 'clear')
-    //attrName is HTML attribute of respective weather image
-
-    if (weather == 'clear') {
-        $(attrName).attr('src', './assets/images/clear.png');
-    } else if (weather == 'clouds') {
-        $(attrName).attr('src', './assets/images/clouds.png');
-    } else if (weather == 'rain') {
-        $(attrName).attr('src', './assets/images/rain.png');
-    } else if (weather == 'wind') {
-        $(attrName).attr('src', './assets/images/wind.png'); 
-    } else if (weather == 'snow') {
-        $(attrName).attr('src', './assets/images/snow.png'); 
-    } else if (weather == 'extreme') {
-        $(attrName).attr('src', './assets/images/extreme.png'); 
-    } else {
-        $(attrName).attr('src', './assets/images/extreme.png'); 
-    } 
-}
-
 
 
 
@@ -169,7 +147,6 @@ function setWeatherImage(weather, attrName) {
  * FIVE DAY FORECAST
  */
 
-var cityName = 'Boone';
 function getFiveDayForecast(cityName) {
     //construct URL using cityName, passed from button click, and API key
     var url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key}&units=imperial`
@@ -187,8 +164,6 @@ function getFiveDayForecast(cityName) {
         });
 }
 
-getFiveDayForecast(cityName);
-
 
 function fillForecastWeather(data) {
     //uses 5 day weather forecast data returned from API call to set data for each card in 5 day forecast
@@ -200,54 +175,119 @@ function fillForecastWeather(data) {
     var fiveDayWeather = parseFiveDayForecast(data);
 
     //select necessary HTML elements
-    var weatherIcon = $('.wIcon5Day')
     var tempValue = $('.five-day-temp')
     var humidityValue = $('.five-day-humidity')
         
-    //set weather icon
-    $.each(weatherIcon, function(index, value) {
-
-        
-
-        // setWeatherImage(weather, '.wIcon5Day');
+    //set weather icons 
+    $.each(fiveDayWeather, function(index, value) {
+        var name = `#wIcon${index}`;                                    //selects ID in HTML
+        var path = `./assets/images/${value[0].toLowerCase()}.png`;     //creates path to respective weather image
+        $(name).attr('src', path);                                      //sets src attribute of name to path
     });
 
     //set temperature values
     $.each(tempValue, function(index, value) {
-        value = $(value);                           //convert to jQuery
-        value.text(fiveDayWeather[index][1]);       //item[1] in fiveDayWeather array is temp value
+        value = $(value);                                               //convert to jQuery
+        value.text(fiveDayWeather[index][1]);                           //item[1] in fiveDayWeather array is temp value
     });
 
     //set humidity values
     $.each(humidityValue, function(index, value) {
-        value = $(value);                           //convert to jQuery
-        value.text(fiveDayWeather[index][2]);       //item[2] in fiveDayWeather array is temp value
+        value = $(value);                                               //convert to jQuery
+        value.text(fiveDayWeather[index][2]);                           //item[2] in fiveDayWeather array is temp value
     });
 
 }
 
 
+function makeFiveDayHTML() {
+    // draws HTML for five day forcast section and appends it to results-column under today's forecast HTML
+    $('#results-column').append(
+        '<h1 id="five-day-forecast-title"> 5 Day Forecast </h1>' +
+        '<div id="five-day-forecast-area">' +
+            '<div class="card" style="width: 18rem;">' +
+            '<div class="card-header">' +
+                'Tomorrows Date' +
+            '</div>' +
+            '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon0" alt="description of weather today"></li>' +
+                '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
+                '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
+            '</ul>' +
+            '</div>' +
+
+            '<div class="card" style="width: 18rem;">' +
+            '<div class="card-header">' +
+                '+2 Days' +
+            '</div>' +
+            '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon1" alt="description of weather today"></li>' +
+                '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
+                '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
+            '</ul>' +
+            '</div>' +
+
+            '<div class="card" style="width: 18rem;">' +
+            '<div class="card-header">' +
+                '+3 Days' +
+            '</div>' +
+            '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon2" alt="description of weather today"></li>' +
+                '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
+                '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
+            '</ul>' +
+            '</div>' +
+
+            '<div class="card" style="width: 18rem;">' +
+            '<div class="card-header">' +
+                '+4 Days' +
+            '</div>' +
+            '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon3" alt="description of weather today"></li>' +
+                '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
+                '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
+            '</ul>' +
+            '</div>' +
+
+            '<div class="card" style="width: 18rem;">' +
+            '<div class="card-header">' +
+                '+5 Days' +
+            '</div>' +
+            '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon4" alt="description of weather today"></li>' +
+                '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
+                '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
+            '</ul>' +
+            '</div>' +
+        '</div>'
+    );
+}
 
 
 function parseFiveDayForecast(data) {
-    // console.log('parse', data.list);
-    
+    //parses JSON response from API call for five day forecast
     //Weather data returned in 3 hour increments for 5 days. Each 8 items in data.list is one day's weather
+    
+    //sets each item of allDaysRawData array to first 8 items of response. 40 responses / 5 days / 3 hour increments = 8 items
     var allDaysRawData = [data.list.slice(0, 8), data.list.slice(8, 16), data.list.slice(16, 24), data.list.slice(24, 32), data.list.slice(32, 40)]
 
+    //sets array to each item of allDaysFinalData for each day in 5 day forecast
+    //each item in allDaysFinalData looks like: ["Clouds", "48.07", "53.75"]
     var allDaysFinalData = [];
 
+    //iterates through raw data response from API call. Each item is one day's values
     $.each(allDaysRawData, function(index, item) {
-        var temps = 0;
-        var humidity = 0;
+        var temps = 0;                                      //accumulator for each day's temperature values
+        var humidity = 0;                                   //accumulator for each day's humidity values
         var weatherDescription;
     
+        //iterates through each day's values. 8 values per day
         $.each(item, function(i, value) {
             temps += value.main.temp;
             humidity += value.main.humidity;
 
             if (i == 0) {
-                weatherDescription = item[0].weather[0].main;
+                weatherDescription = item[0].weather[0].main;   //sets eather description to first value of first weather item
             }
         });
         
@@ -263,9 +303,11 @@ function parseFiveDayForecast(data) {
 
 
 function setFiveDayForecastDates() {
-
+    //sets dates for five day forcast into each respective card
+    
     var dateRange = []
 
+    //dates come from moment.js library and formatted accordingly
     var tomorrow = moment().add(1, 'days').format('MMMM D');
     var twoDays = moment().add(2, 'days').format('MMMM D');
     var threeDays = moment().add(3, 'days').format('MMMM D')
