@@ -32,7 +32,9 @@ h2 {
     font-family: var(--header-font);
 }
 
+/*****************/
 /* Search Column */
+/*****************/
 
 #search-column {
     width: 30%;
@@ -51,7 +53,16 @@ li {
     height: 50px;
 }
 
+.list-group-item button {
+    text-align: left;
+    width: 100%;
+    border: none;
+    background-color: white;
+}
+
+/******************/
 /* Results Column */
+/******************/
 
 /* Today's Forecast */
 #results-column {

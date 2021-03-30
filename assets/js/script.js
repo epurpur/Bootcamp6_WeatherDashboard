@@ -35,6 +35,34 @@ $('#searchBtn').click(function() {
 });
 
 
+//if user clicks on item (button) in 'recent searches' list
+//need to use event delegation to make this an active button
+$(document).on("click", "#recentSearchBtn", function() {     
+    var cityName = $(this).text();    //gets value of city
+
+    //remove HTML for today's weather card if any exists
+    $('#today-forecast').remove();
+
+    //reset search text to empty
+    $('input').val('');
+    
+    //draw HTML for today's weather card     
+    makeTodaysHTML();
+
+    //make API call for today's weather
+    getTodaysWeather(cityName);
+
+    //remove HTML for 5 day forecast if any exists
+    $('#five-day-forecast-title').remove()
+    $('#five-day-forecast-area').remove();
+
+    //draw HTML for 5 day weather forecast
+    makeFiveDayHTML()
+
+    //make API call for 5 day weather
+    getFiveDayForecast(cityName)
+});
+
 /** 
  * TODAY'S WEATHER FUNCTIONS
  */
@@ -69,12 +97,15 @@ function addRecentSearch(cityName) {
     var recentSearchLength = $('#recent-searches').children().length;
 
     if (recentSearchLength < 10) {        // if < 10 recent search items in list, just add new item to list
-        $('#recent-searches').prepend(`<li class="list-group-item">${cityName}</li>`);
+        $('#recent-searches').prepend(`<li class="list-group-item recentSearchBtn"><button id="recentSearchBtn">${cityName}</button></li>`);
     } else {                              // if > 10 search items, remove last one and replace with new item
         $('#recent-searches').children().last().remove();
-        $('#recent-searches').prepend(`<li class="list-group-item">${cityName}</li>`);
+        $('#recent-searches').prepend(`<li class="list-group-item recentSearchBtn"><button id="recentSearchBtn">${cityName}</button></li>`);
     }
 }
+
+
+
 
 
 function makeTodaysHTML() {
@@ -210,7 +241,7 @@ function makeFiveDayHTML() {
                 'Tomorrows Date' +
             '</div>' +
             '<ul class="list-group list-group-flush">' +
-                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon0" alt="description of weather today"></li>' +
+                '<li class="list-group-item"><img src="" class="wIcon5Day" id="wIcon0" alt="description of weather today"></li>' +
                 '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
                 '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
             '</ul>' +
@@ -221,7 +252,7 @@ function makeFiveDayHTML() {
                 '+2 Days' +
             '</div>' +
             '<ul class="list-group list-group-flush">' +
-                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon1" alt="description of weather today"></li>' +
+                '<li class="list-group-item"><img src="" class="wIcon5Day" id="wIcon1" alt="description of weather today"></li>' +
                 '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
                 '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
             '</ul>' +
@@ -232,7 +263,7 @@ function makeFiveDayHTML() {
                 '+3 Days' +
             '</div>' +
             '<ul class="list-group list-group-flush">' +
-                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon2" alt="description of weather today"></li>' +
+                '<li class="list-group-item"><img src="" class="wIcon5Day" id="wIcon2" alt="description of weather today"></li>' +
                 '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
                 '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
             '</ul>' +
@@ -243,7 +274,7 @@ function makeFiveDayHTML() {
                 '+4 Days' +
             '</div>' +
             '<ul class="list-group list-group-flush">' +
-                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon3" alt="description of weather today"></li>' +
+                '<li class="list-group-item"><img src="" class="wIcon5Day" id="wIcon3" alt="description of weather today"></li>' +
                 '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
                 '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
             '</ul>' +
@@ -254,7 +285,7 @@ function makeFiveDayHTML() {
                 '+5 Days' +
             '</div>' +
             '<ul class="list-group list-group-flush">' +
-                '<li class="list-group-item"><img src="./assets/images/error.png" class="wIcon5Day" id="wIcon4" alt="description of weather today"></li>' +
+                '<li class="list-group-item"><img src="" class="wIcon5Day" id="wIcon4" alt="description of weather today"></li>' +
                 '<li class="list-group-item">Temp: <span class="five-day-temp"></span> F</li>' +
                 '<li class="list-group-item">Humidity: <span class="five-day-humidity"></span>%</li>' +
             '</ul>' +
