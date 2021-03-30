@@ -5,63 +5,13 @@
 var api_key = '333de4e909a5ffe9bfa46f0f89cad105'
 
 
-$('#searchBtn').click(function() {
-    var cityName = $('input').val();
-
-    //remove HTML for today's weather card if any exists
-    $('#today-forecast').remove();
-
-    //reset search text to empty
-    $('input').val('');
-    
-    //draw HTML for today's weather card     
-    makeTodaysHTML();
-
-    //make API call for today's weather
-    getTodaysWeather(cityName);
-
-    //add search value to list of Recent Searches
-    addRecentSearch(cityName);
-
-    //remove HTML for 5 day forecast if any exists
-    $('#five-day-forecast-title').remove()
-    $('#five-day-forecast-area').remove();
-
-    //draw HTML for 5 day weather forecast
-    makeFiveDayHTML()
-
-    //make API call for 5 day weather
-    getFiveDayForecast(cityName)
-});
 
 
-//if user clicks on item (button) in 'recent searches' list
-//need to use event delegation to make this an active button
-$(document).on("click", "#recentSearchBtn", function() {     
-    var cityName = $(this).text();    //gets value of city
 
-    //remove HTML for today's weather card if any exists
-    $('#today-forecast').remove();
 
-    //reset search text to empty
-    $('input').val('');
-    
-    //draw HTML for today's weather card     
-    makeTodaysHTML();
 
-    //make API call for today's weather
-    getTodaysWeather(cityName);
 
-    //remove HTML for 5 day forecast if any exists
-    $('#five-day-forecast-title').remove()
-    $('#five-day-forecast-area').remove();
 
-    //draw HTML for 5 day weather forecast
-    makeFiveDayHTML()
-
-    //make API call for 5 day weather
-    getFiveDayForecast(cityName)
-});
 
 /** 
  * TODAY'S WEATHER FUNCTIONS
@@ -359,3 +309,105 @@ function setFiveDayForecastDates() {
 
 
 
+/**
+ * BUTTONS
+ */
+
+
+
+//search button functionality
+$('#searchBtn').click(function() {
+    var cityName = $('input').val();
+
+    //remove HTML for today's weather card if any exists
+    $('#today-forecast').remove();
+
+    //reset search text to empty
+    $('input').val('');
+    
+    //draw HTML for today's weather card     
+    makeTodaysHTML();
+
+    //make API call for today's weather
+    getTodaysWeather(cityName);
+
+    //add search value to list of Recent Searches
+    addRecentSearch(cityName);
+
+    //remove HTML for 5 day forecast if any exists
+    $('#five-day-forecast-title').remove()
+    $('#five-day-forecast-area').remove();
+
+    //draw HTML for 5 day weather forecast
+    makeFiveDayHTML()
+
+    //make API call for 5 day weather
+    getFiveDayForecast(cityName)
+
+    //log cityName into localStorage
+    setToLocalStorage(cityName);
+});
+
+
+
+//if user clicks on item (button) in 'recent searches' list
+//need to use event delegation to make this an active button
+$(document).on("click", "#recentSearchBtn", function() {     
+    var cityName = $(this).text();    //gets value of city
+
+    //remove HTML for today's weather card if any exists
+    $('#today-forecast').remove();
+
+    //reset search text to empty
+    $('input').val('');
+    
+    //draw HTML for today's weather card     
+    makeTodaysHTML();
+
+    //make API call for today's weather
+    getTodaysWeather(cityName);
+
+    //remove HTML for 5 day forecast if any exists
+    $('#five-day-forecast-title').remove()
+    $('#five-day-forecast-area').remove();
+
+    //draw HTML for 5 day weather forecast
+    makeFiveDayHTML()
+
+    //make API call for 5 day weather
+    getFiveDayForecast(cityName)
+});
+
+
+function setToLocalStorage(cityName) {
+    
+    //retrieve recentSearches item from localStorage. If none exist, returns empty array
+    var recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+    
+    if (recentSearches.length < 10) {
+        recentSearches.unshift(cityName);   //adds cityName to front of array
+    } else {
+        recentSearches.pop()                //removes last item from array
+        recentSearches.unshift(cityName)    //adds cityName to front of array
+    }
+
+    //set recentSearches to localStorage
+    localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+}
+
+/**
+ * ON PAGE LOAD     ######START HERE, LOGIC IS NOT QUITE RIGHT
+ */
+
+$(document).ready(function() {
+    
+    //read array from localStorage (recentSearches), draw HTML in 'recent searches' for each item in recentSearches array
+    var recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+    
+    $.each(recentSearches, function(index, value) {
+        //each value is a city name, takes this value and makes HTML from it
+        addRecentSearch(value);
+    });
+
+    // addRecentSearch(cityName)
+})
