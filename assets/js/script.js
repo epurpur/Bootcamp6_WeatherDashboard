@@ -133,28 +133,34 @@ function fillDailyWeather(data) {
 
     //sets weather image based on value of conditions
     var conditions = data.weather[0].main.toLowerCase();
-
-    if (conditions == 'clear') {
-        $('#wIcon').attr('src', './assets/images/clear.png');
-    } else if (conditions == 'clouds') {
-        $('#wIcon').attr('src', './assets/images/clouds.png');
-    } else if (conditions == 'rain') {
-        $('#wIcon').attr('src', './assets/images/rain.png');
-    } else if (conditions == 'wind') {
-        $('#wIcon').attr('src', './assets/images/wind.png'); 
-    } else if (conditions == 'snow') {
-        $('#wIcon').attr('src', './assets/images/snow.png'); 
-    } else if (conditions == 'extreme') {
-        $('#wIcon').attr('src', './assets/images/extreme.png'); 
-    } else {
-        $('#wIcon').attr('src', './assets/images/extreme.png'); 
-    }   
+    setWeatherImage(conditions, '#wIcon');
+ 
 }
 
 
 
 
+function setWeatherImage(weather, attrName) {
+    //sets src attribute of weather image for given day
+    //weather is description of weather on that day (ex: 'clear')
+    //attrName is HTML attribute of respective weather image
 
+    if (weather == 'clear') {
+        $(attrName).attr('src', './assets/images/clear.png');
+    } else if (weather == 'clouds') {
+        $(attrName).attr('src', './assets/images/clouds.png');
+    } else if (weather == 'rain') {
+        $(attrName).attr('src', './assets/images/rain.png');
+    } else if (weather == 'wind') {
+        $(attrName).attr('src', './assets/images/wind.png'); 
+    } else if (weather == 'snow') {
+        $(attrName).attr('src', './assets/images/snow.png'); 
+    } else if (weather == 'extreme') {
+        $(attrName).attr('src', './assets/images/extreme.png'); 
+    } else {
+        $(attrName).attr('src', './assets/images/extreme.png'); 
+    } 
+}
 
 
 
@@ -194,14 +200,17 @@ function fillForecastWeather(data) {
     var fiveDayWeather = parseFiveDayForecast(data);
 
     //select necessary HTML elements
-    var weatherIcon = $('.five-day-weather')
+    var weatherIcon = $('.wIcon5Day')
     var tempValue = $('.five-day-temp')
     var humidityValue = $('.five-day-humidity')
-    
-    //use parsed data from fiveDayWeather to fill out HTML data
-    
-    //set weather icon  ####START HERE #####
+        
+    //set weather icon
+    $.each(weatherIcon, function(index, value) {
 
+        
+
+        // setWeatherImage(weather, '.wIcon5Day');
+    });
 
     //set temperature values
     $.each(tempValue, function(index, value) {
