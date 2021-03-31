@@ -1,16 +1,39 @@
 
 
+/**
+ * ON PAGE LOAD     
+ */
+
+ $(document).ready(function() {
+    
+    //read array from localStorage (recentSearches), draw HTML in 'recent searches' for each item in recentSearches array
+    var recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+    
+    recentSearches.reverse();   //for some reason the array is populated backwards when page reloads. So I reverse array to fix this
+
+    // addRecentSearch(cityName)
+    $.each(recentSearches, function(index, value) {
+        //each value is a city name, takes this value and makes HTML from it
+        addRecentSearch(value);
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 //link to OpenWeatherMap API docs: https://openweathermap.org/api
 //my openweathermap api key
 var api_key = '333de4e909a5ffe9bfa46f0f89cad105'
-
-
-
-
-
-
-
-
 
 
 /** 
@@ -395,19 +418,4 @@ function setToLocalStorage(cityName) {
     localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
 }
 
-/**
- * ON PAGE LOAD     ######START HERE, LOGIC IS NOT QUITE RIGHT
- */
 
-$(document).ready(function() {
-    
-    //read array from localStorage (recentSearches), draw HTML in 'recent searches' for each item in recentSearches array
-    var recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
-    
-    $.each(recentSearches, function(index, value) {
-        //each value is a city name, takes this value and makes HTML from it
-        addRecentSearch(value);
-    });
-
-    // addRecentSearch(cityName)
-})

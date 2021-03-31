@@ -1,7 +1,7 @@
 
-
-
-
+/******************/
+/* Root Variables */
+/******************/
 :root {
     --background-color: gray;
     --jumbotron-font: 'Magra', sans-serif;
@@ -64,7 +64,9 @@ li {
 /* Results Column */
 /******************/
 
+/********************/
 /* Today's Forecast */
+/********************/
 #results-column {
     justify-content: center;
     padding: 10px 5px 10px 5px;
@@ -111,8 +113,9 @@ li {
     width: 65%;
 }
 
+/*********************/
 /* Five Day forecast */
-
+/*********************/
 .card-header {
     background-color: var(--background-color);
 }
@@ -134,7 +137,6 @@ li {
     text-align: left;
     font-size: 23px;
     text-align: center;
-
 }
 
 #five-day-forecast-area .list-group-item:first-child {
