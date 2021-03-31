@@ -41,4 +41,4 @@ THEN I am again presented with current and future conditions for that city
 ## Preview
 The finished page looks like this:
 
-![](./assets/images/screenshot.png)
+![](./assets/images/Screenshot.png)
