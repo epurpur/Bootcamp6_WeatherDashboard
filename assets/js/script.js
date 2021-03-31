@@ -221,10 +221,7 @@ function getFiveDayForecast(cityName) {
         .then(function (response) {
             if (response.ok) {             //if user input is a valid city name
                 return response.json(); 
-            } else {
-                alert('Invalid City Name. Please enter a valid city name');
-                return Promise.reject(response)
-            }
+            } 
         })
         .then(function (data) {
 
