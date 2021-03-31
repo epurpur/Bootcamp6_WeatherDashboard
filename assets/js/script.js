@@ -97,15 +97,15 @@ $(document).on("click", "#recentSearchBtn", function() {
 
 //link to OpenWeatherMap API docs: https://openweathermap.org/api
 //my openweathermap api key
-var api_key = '333de4e909a5ffe9bfa46f0f89cad105'
-
+// var api_key = '333de4e909a5ffe9bfa46f0f89cad105'
+var api_key = 'd91f911bcf2c0f925fb6535547a5ddc9'
 
 
 //get today's weather data by city
 // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 function getTodaysWeather(cityName) {
     //construct URL using cityName, passed from button click, and API key
-    var url = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${api_key}&units=imperial`
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${api_key}&units=imperial`
 
     // make API request for today's weather forecast in requested city
     fetch(url)
@@ -114,6 +114,7 @@ function getTodaysWeather(cityName) {
                 return response.json(); 
             } else {
                 alert('Invalid City Name. Please enter a valid city name');
+                return Promise.reject(response)
             }
         })
         .then(function (data) {
@@ -213,16 +214,20 @@ function fillDailyWeather(data) {
 
 function getFiveDayForecast(cityName) {
     //construct URL using cityName, passed from button click, and API key
-    var url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key}&units=imperial`
+    var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key}&units=imperial`
 
     // make API request for today's weather forecast in requested city
     fetch(url)
         .then(function (response) {
             if (response.ok) {             //if user input is a valid city name
                 return response.json(); 
-            } 
+            } else {
+                alert('Invalid City Name. Please enter a valid city name');
+                return Promise.reject(response)
+            }
         })
         .then(function (data) {
+
             //set dates for 5 day forecast
             fillForecastWeather(data);
         });
